@@ -5,23 +5,37 @@ import ListBooks from './ListBooks'
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
+    isLoaded: false
+  }
+
+  loadBooks = () => {
+    BooksAPI.getAll()
+    .then((result) => {
+      console.log(result);
+      this.setState(()=>({
+        Books: result,
+        isLoaded : true
+      }))
+    })
   }
   componentDidMount(){
-    BooksAPI.getAll().then((books) => {
-      console.log(books);
+    this.loadBooks();
+  }
+
+  handleChangeBookShelf = (book,e) => {
+    BooksAPI.update(book,e.target.value).then((result) => {
+      // console.log(result);
+      this.loadBooks();
     })
   }
 
   render() {
+    if(this.state.isLoaded === false)
+      return (<div>Loading ....</div>)
+    // console.log(this.state.Books);
     return (
       <div className="app">
-        <ListBooks></ListBooks>
+        <ListBooks handleBookUpdate={this.handleChangeBookShelf} Books={this.state.Books}></ListBooks>
       </div>
     )
   }

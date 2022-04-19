@@ -2,16 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import './index.css'
-import {BrowserRouter,Route,Routes} from 'react-router-dom'
+import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 
 import Search from './Search'
-import ListBooks from './ListBooks'
 
-ReactDOM.render( <BrowserRouter>
+ReactDOM.render( <Router>
                     <Routes>
-                        <Route path='/' element={<App />} >
-                        </Route>
-                        <Route path='/search' element={<Search />}></Route>
+                        <Route exact path='/' element={<App />} />
+                        <Route path='/search' element={<Search />} />
+
                     </Routes>
-                 </BrowserRouter> 
+                 </Router> 
                  , document.getElementById('root'))
