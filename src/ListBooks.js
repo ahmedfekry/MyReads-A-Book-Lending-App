@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book';
 
-class ListBooks extends Component {
+function ListBooks (props) {
 
-
-  render() {
-    const {Books,handleBookUpdate} = this.props;
+    const {Books,handleBookUpdate} = props;
 
     const currentlyReading = Books.filter((book) => (book.shelf === "currentlyReading"));
     const wantToRead = Books.filter((book) => (book.shelf === "wantToRead"));
@@ -62,7 +60,6 @@ class ListBooks extends Component {
         </div>
       </div>
     )
-  }
 }
 
 
